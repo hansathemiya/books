@@ -1,1 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIX7 Plumbing · Professional Invoice 2026</title>
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #e5edf5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* UI Editor Card - what user sees and edits */
+        .editor-card {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 30, 50, 0.25);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .editor-header {
+            background: #1c3f5c;
+            color: white;
+            padding: 18px 28px;
+        }
+        
+        .editor-header h2 {
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+        
+        .editor-header h2 span {
+            background: #c0a56b;
+            color: #1c3f5c;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-left: 15px;
+        }
+        
+        .editor-body {
+            padding: 30px;
+            background: #f8fafd;
+        }
+        
+        /* Form styling */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .form-group {
+            flex: 1 1 250px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #3d5f7a;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #c9daea;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: white;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #c0a56b;
+            box-shadow: 0 0 0 2px rgba(192, 165, 107, 0.2);
+        }
+        
+        .form-group input[readonly] {
+            background: #eef4f9;
+            font-family: monospace;
+        }
+        
+        /* Items table in editor */
+        .items-editor {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #d8e5f0;
+            overflow: hidden;
+            margin: 25px 0 20px;
+        }
+        
+        .items-editor-header {
+            display: grid;
+            grid-template-columns: 3fr 1.2fr 1.2fr 1.5fr 0.8fr;
+            background: #274a66;
+            color: white;
+            padding: 14px 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .item-editor-row {
+            display: grid;
+            grid-template-columns: 3fr 1.2fr 1.2fr 1.5fr 0.8fr;
+            padding: 12px 20px;
+            align-items: center;
+            border-bottom: 1px solid #e2eef9;
+        }
+        
+        .item-editor-row input {
+            width: 90%;
+            padding: 8px 12px;
+            border: 1px solid #cbdae7;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .item-editor-row .item-total-preview {
+            font-weight: 600;
+            color: #1c3f5c;
+            text-align: right;
+            padding-right: 15px;
+        }
+        
+        .remove-item-btn {
+            background: #fee9e9;
+            border: 1px solid #e2b6b6;
+            color: #b13e3e;
+            width: 32px;
+            height: 32px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .add-item-btn {
+            background: white;
+            border: 1px dashed #597a9c;
+            color: #1c3f5c;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 0 20px;
+        }
+        
+        /* Discount section in editor */
+        .discount-editor {
+            background: #eef4fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid #c9daea;
+        }
+        
+        .discount-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+        }
+        
+        .discount-control input {
+            width: 90px;
+            padding: 8px 12px;
+            border: 1px solid #b8cee4;
+            border-radius: 5px;
+            text-align: right;
+        }
+        
+        .discount-control select {
+            padding: 8px;
+            border: 1px solid #b8cee4;
+            border-radius: 5px;
+            background: white;
+        }
+        
+        .totals-preview {
+            display: flex;
+            gap: 30px;
+            align-items: baseline;
+        }
+        
+        .totals-preview div span {
+            font-weight: 700;
+            color: #1c3f5c;
+            font-size: 1.2rem;
+            margin-left: 8px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        .btn-primary {
+            background: #1c3f5c;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0f2d42;
+        }
+        
+        .btn-secondary {
+            background: white;
+            border: 1px solid #9bb4cf;
+            color: #1c3f5c;
+        }
+        
+        /* PROFESSIONAL INVOICE TEMPLATE - Hidden, used only for PDF */
+        .invoice-template {
+            display: none;
+        }
+        
+        .invoice-for-pdf {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            padding: 18mm 20mm 25mm 20mm;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            color: #1e2f3d;
+            line-height: 1.5;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Logo at top left corner - black wordmark (KEPT) */
+        .invoice-for-pdf .top-logo {
+            position: absolute;
+            top: 15mm;
+            left: 20mm;
+            max-width: 140px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .invoice-for-pdf .top-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Header with title - now uses flex to place items at opposite ends */
+        .invoice-for-pdf .header {
+            display: flex;
+            justify-content: space-between;  /* Pushes children to opposite ends */
+            align-items: baseline;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #c0a56b;
+            padding-bottom: 15px;
+            margin-top: 10mm;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            width: 100%;
+        }
+        
+        /* Company name styled exactly like PAYMENT INVOICE (opposite side) */
+        .invoice-for-pdf .company-name-header {
+            font-size: 32px;          /* Same as h2 in invoice-title */
+            font-weight: 600;          /* Same weight */
+            color: #1c3f5c;            /* Same color */
+            letter-spacing: -0.5px;     /* Same as h2 */
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+        
+        .invoice-for-pdf .invoice-title {
+            text-align: right;
+        }
+        
+        .invoice-for-pdf .invoice-title h2 {
+            color: #1c3f5c;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+        
+        .invoice-for-pdf .invoice-title .badge {
+            background: #c0a56b;
+            color: #1c3f5c;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .invoice-for-pdf .info-grid {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0 20px;
+            padding: 18px 20px;
+            background: #f5f9ff;
+            border-radius: 8px;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .invoice-for-pdf .info-block p {
+            margin: 5px 0;
+            font-size: 13px;
+        }
+        
+        .invoice-for-pdf .info-block .label {
+            color: #4a6579;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+        
+        .invoice-for-pdf .info-block .value {
+            font-weight: 600;
+            color: #1c3f5c;
+            font-size: 15px;
+        }
+        
+        .invoice-for-pdf table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            page-break-inside: auto;
+        }
+        
+        .invoice-for-pdf th {
+            background: #1c3f5c;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .invoice-for-pdf td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e9f2;
+            font-size: 13px;
+        }
+        
+        .invoice-for-pdf td:last-child,
+        .invoice-for-pdf th:last-child {
+            text-align: right;
+        }
+        
+        .invoice-for-pdf td:nth-child(2),
+        .invoice-for-pdf td:nth-child(3),
+        .invoice-for-pdf td:nth-child(4) {
+            text-align: right;
+        }
+        
+        .invoice-for-pdf tbody tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .invoice-for-pdf .totals {
+            width: 350px;
+            margin-left: auto;
+            margin-top: auto;
+            margin-bottom: 10mm;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .invoice-for-pdf .totals table {
+            width: 100%;
+            margin: 0;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
+        .invoice-for-pdf .totals td {
+            border: none;
+            padding: 8px 12px;
+        }
+        
+        .invoice-for-pdf .totals .final {
+            background: #1c3f5c;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        /* Footer now only contains copyright (logo removed) */
+        .invoice-for-pdf .footer {
+            margin-top: 10mm;
+            text-align: center;
+            font-size: 10px;
+            color: #4a6579;
+            border-top: 1px solid #c0a56b;
+            padding-top: 8px;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            page-break-before: avoid;
+        }
+        
+        .invoice-for-pdf .footer .line1 {
+            margin-bottom: 3px;
+        }
+        
+        .invoice-for-pdf .footer .line2 {
+            font-weight: 500;
+        }
+        
+        .invoice-for-pdf .footer strong {
+            color: #1c3f5c;
+        }
+        
+        .invoice-for-pdf .content-main {
+            flex: 1 0 auto;
+        }
+        
+        img {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- UI EDITOR -->
+    <div class="editor-card">
+        <div class="editor-header">
+            <h2>SIX7 Plumbing Invoice Editor <span>2026</span></h2>
+        </div>
+        <div class="editor-body">
+            <!-- Client Information -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Client Name</label>
+                    <input type="text" id="clientName" value="Heritage Apartments" placeholder="Full name">
+                </div>
+                <div class="form-group">
+                    <label>Invoice Number (randomised)</label>
+                    <input type="text" id="invoiceNumber" value="" readonly style="background:#eef4f9; font-family: monospace;">
+                </div>
+                <div class="form-group">
+                    <label>Plumbing Ref (fixed)</label>
+                    <input type="text" id="plumbingRef" value="SIX7-PLMB-1232-4321" readonly style="background:#eef4f9; font-family: monospace;">
+                </div>
+            </div>
+            
+            <!-- Items Editor -->
+            <div class="items-editor" id="itemsEditor">
+                <div class="items-editor-header">
+                    <div>Product / Service</div>
+                    <div>Price (LKR)</div>
+                    <div>Qty</div>
+                    <div>Total</div>
+                    <div style="text-align: center;">Remove</div>
+                </div>
+                <div id="editorRowsContainer"></div>
+            </div>
+            
+            <button class="add-item-btn" id="addItemBtn">+ Add Product or Service</button>
+            
+            <!-- Discount Controls -->
+            <div class="discount-editor">
+                <div class="discount-control">
+                    <span style="font-weight: 600;">Discount:</span>
+                    <input type="number" id="discountValue" value="0" min="0" step="any">
+                    <select id="discountType">
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="flat">Flat Amount (LKR)</option>
+                    </select>
+                </div>
+                <div class="totals-preview">
+                    <div>Subtotal: <span id="previewSubtotal">0.00</span> LKR</div>
+                    <div>Discount: <span id="previewDiscount">0.00</span> LKR</div>
+                    <div style="font-weight: 700;">Total: <span id="previewTotal">0.00</span> LKR</div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="resetBtn">Reset to Sample</button>
+                <button class="btn btn-primary" id="generatePdfBtn">Generate Professional Invoice PDF</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PROFESSIONAL INVOICE TEMPLATE (Hidden) -->
+    <div class="invoice-template">
+        <div id="invoiceForPdf" class="invoice-for-pdf">
+            <!-- Top left logo (absolute) - kept -->
+            <div class="top-logo">
+                <img src="https://plumbing.six7.lk/logo.png" alt="SIX7 Plumbing" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 60\'%3E%3Crect width=\'200\' height=\'60\' fill=\'%23000000\'/%3E%3Ctext x=\'20\' y=\'42\' fill=\'white\' font-size=\'28\' font-weight=\'bold\'%3ESIX7%3C/text%3E%3C/svg%3E';">
+            </div>
+            
+            <!-- main content container -->
+            <div class="content-main">
+                <!-- Header with company left, invoice title right (opposite sides) -->
+                <div class="header">
+                    <div class="company-name-header">SIX7 PLUMBING</div>
+                    <div class="invoice-title">
+                        <h2>PAYMENT INVOICE</h2>
+                        <span class="badge">2026 · LKR</span>
+                    </div>
+                </div>
+                
+                <!-- Info grid -->
+                <div class="info-grid">
+                    <div class="info-block">
+                        <p class="label">Bill To</p>
+                        <p class="value" id="pdfClientName">Heritage Apartments</p>
+                    </div>
+                    <div class="info-block">
+                        <p class="label">Invoice Number</p>
+                        <p class="value" id="pdfInvoiceNo">INV-2026-12345678</p>
+                    </div>
+                    <div class="info-block">
+                        <p class="label">Plumbing Reference</p>
+                        <p class="value" id="pdfPlumbingRef">SIX7-PLMB-1232-4321</p>
+                    </div>
+                    <div class="info-block">
+                        <p class="label">Date & Time</p>
+                        <p class="value" id="pdfDateTime">2026-02-25 03:24 pm</p>
+                    </div>
+                </div>
+                
+                <!-- Items Table -->
+                <table id="pdfItemsTable">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Price (LKR)</th>
+                            <th>Quantity</th>
+                            <th>Total (LKR)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdfItemsBody"></tbody>
+                </table>
+            </div>  <!-- end content-main -->
+            
+            <!-- Totals with Discount -->
+            <div class="totals">
+                <table>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td style="text-align: right; font-weight: 600;" id="pdfSubtotal">0.00 LKR</td>
+                    </tr>
+                    <tr>
+                        <td>Discount:</td>
+                        <td style="text-align: right; color: #b13e3e;" id="pdfDiscount">0.00 LKR</td>
+                    </tr>
+                    <tr class="final">
+                        <td>TOTAL AMOUNT DUE:</td>
+                        <td style="text-align: right;" id="pdfTotal">0.00 LKR</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Footer with only copyright lines -->
+            <div class="footer" id="pdfFooter">
+                <div class="line1" id="footerLine1">This is a computer-generated invoice by SIX7 Plumbing to <strong>Heritage Apartments</strong></div>
+                <div class="line2" id="footerLine2">© 2026 SIX7 Plumbing All Rights Reserved.</div>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        (function() {
+            // Helper: generate random 8 digits
+            function random8Digits() {
+                return Math.floor(10000000 + Math.random() * 90000000).toString();
+            }
+
+            // Current date/time in 12hr format
+            function getCurrentDateTime() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = String(now.getMonth() + 1).padStart(2, '0');
+                const day = String(now.getDate()).padStart(2, '0');
+                
+                let hours = now.getHours();
+                let minutes = now.getMinutes();
+                const ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                
+                return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
+            }
+
+            // Data model
+            let items = [
+                { name: 'Faucet repair bathroom', price: 4500, qty: 1 },
+                { name: 'Copper pipe 1/2" meter', price: 1200, qty: 3.5 },
+                { name: 'Drain unblock service', price: 3200, qty: 1 }
+            ];
+
+            // Set initial invoice number with random 8 digits
+            const invNumberField = document.getElementById('invoiceNumber');
+            let currentRandomDigits = random8Digits();
+            invNumberField.value = `INV-2026-${currentRandomDigits}`;
+
+            // Capitalize words
+            function capitalizeWords(str) {
+                return str.replace(/\b\w/g, char => char.toUpperCase());
+            }
+
+            // Format money
+            function formatMoney(value) {
+                return value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            }
+
+            // Calculate subtotal
+            function calculateSubtotal() {
+                return items.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            }
+
+            // Calculate discount
+            function calculateDiscount(subtotal, discountVal, discountTyp) {
+                const val = parseFloat(discountVal) || 0;
+                if (discountTyp === 'percentage') {
+                    return subtotal * (Math.min(val, 100) / 100);
+                } else {
+                    return Math.min(val, subtotal);
+                }
+            }
+
+            // Update previews in editor
+            function updatePreviews() {
+                const subtotal = calculateSubtotal();
+                const discountVal = document.getElementById('discountValue').value;
+                const discountTyp = document.getElementById('discountType').value;
+                const discount = calculateDiscount(subtotal, discountVal, discountTyp);
+                const total = subtotal - discount;
+
+                document.getElementById('previewSubtotal').textContent = formatMoney(subtotal);
+                document.getElementById('previewDiscount').textContent = formatMoney(discount);
+                document.getElementById('previewTotal').textContent = formatMoney(total);
+            }
+
+            // Render editor rows
+            function renderEditorRows() {
+                const container = document.getElementById('editorRowsContainer');
+                let html = '';
+
+                items.forEach((item, index) => {
+                    const rowTotal = item.price * item.qty;
+                    html += `
+                        <div class="item-editor-row" data-index="${index}">
+                            <input type="text" class="item-name" value="${escapeHtml(item.name)}" placeholder="Service" data-index="${index}" data-field="name">
+                            <input type="number" class="item-price" value="${item.price}" min="0" step="0.01" data-index="${index}" data-field="price" style="text-align:right;">
+                            <input type="number" class="item-qty" value="${item.qty}" min="0" step="0.01" data-index="${index}" data-field="qty" style="text-align:right;">
+                            <div class="item-total-preview">${formatMoney(rowTotal)} LKR</div>
+                            <div style="text-align:center;">
+                                <button class="remove-item-btn" data-index="${index}">✕</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+
+                // Attach event listeners
+                document.querySelectorAll('.item-editor-row input').forEach(input => {
+                    input.addEventListener('input', function(e) {
+                        const index = this.dataset.index;
+                        const field = this.dataset.field;
+                        
+                        if (field === 'name') {
+                            items[index].name = this.value;
+                        } else if (field === 'price') {
+                            items[index].price = parseFloat(this.value) || 0;
+                        } else if (field === 'qty') {
+                            items[index].qty = parseFloat(this.value) || 0;
+                        }
+                        
+                        const row = this.closest('.item-editor-row');
+                        const rowTotalDiv = row.querySelector('.item-total-preview');
+                        rowTotalDiv.textContent = formatMoney(items[index].price * items[index].qty) + ' LKR';
+                        
+                        updatePreviews();
+                    });
+                });
+
+                // Remove buttons
+                document.querySelectorAll('.remove-item-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = this.dataset.index;
+                        if (items.length > 1) {
+                            items.splice(index, 1);
+                        } else {
+                            items[0] = { name: 'Plumbing service', price: 0, qty: 0 };
+                        }
+                        renderEditorRows();
+                        updatePreviews();
+                    });
+                });
+
+                updatePreviews();
+            }
+
+            function escapeHtml(unsafe) {
+                return unsafe.replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            // Add new item
+            document.getElementById('addItemBtn').addEventListener('click', function() {
+                items.push({ name: 'New plumbing service', price: 0, qty: 1 });
+                renderEditorRows();
+            });
+
+            // Reset to sample and randomize invoice number again
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                items = [
+                    { name: 'Water heater installation', price: 12500, qty: 1 },
+                    { name: 'PVC pipe 2" length', price: 850, qty: 6 },
+                    { name: 'Faucet mixer', price: 3450, qty: 2 },
+                    { name: 'Labor hourly', price: 2200, qty: 2.5 }
+                ];
+                document.getElementById('clientName').value = 'Ocean Edge Villas';
+                // Generate new random 8 digits
+                currentRandomDigits = random8Digits();
+                document.getElementById('invoiceNumber').value = `INV-2026-${currentRandomDigits}`;
+                document.getElementById('discountValue').value = '0';
+                document.getElementById('discountType').value = 'percentage';
+                renderEditorRows();
+            });
+
+            // Discount input events
+            document.getElementById('discountValue').addEventListener('input', updatePreviews);
+            document.getElementById('discountType').addEventListener('change', updatePreviews);
+
+            // GENERATE PROFESSIONAL PDF
+            document.getElementById('generatePdfBtn').addEventListener('click', function() {
+                // Get form values
+                const clientName = document.getElementById('clientName').value || 'Client';
+                const invoiceNumber = document.getElementById('invoiceNumber').value || `INV-2026-${random8Digits()}`;
+                const plumbingRef = document.getElementById('plumbingRef').value;
+                const currentDateTime = getCurrentDateTime();
+                
+                // Calculate totals
+                const subtotal = calculateSubtotal();
+                const discountVal = document.getElementById('discountValue').value;
+                const discountTyp = document.getElementById('discountType').value;
+                const discount = calculateDiscount(subtotal, discountVal, discountTyp);
+                const total = subtotal - discount;
+
+                // Capitalize item names for PDF
+                const capitalizedItems = items.map(item => ({
+                    ...item,
+                    name: capitalizeWords(item.name)
+                }));
+
+                // Fill PDF template
+                document.getElementById('pdfClientName').textContent = clientName;
+                document.getElementById('pdfInvoiceNo').textContent = invoiceNumber;
+                document.getElementById('pdfPlumbingRef').textContent = plumbingRef;
+                document.getElementById('pdfDateTime').textContent = currentDateTime;
+                
+                // Fill items table
+                const itemsBody = document.getElementById('pdfItemsBody');
+                itemsBody.innerHTML = '';
+                capitalizedItems.forEach(item => {
+                    const rowTotal = item.price * item.qty;
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${escapeHtml(item.name)}</td>
+                        <td>${formatMoney(item.price)}</td>
+                        <td>${item.qty}</td>
+                        <td>${formatMoney(rowTotal)}</td>
+                    `;
+                    itemsBody.appendChild(row);
+                });
+
+                // Fill totals
+                document.getElementById('pdfSubtotal').textContent = formatMoney(subtotal) + ' LKR';
+                document.getElementById('pdfDiscount').textContent = '- ' + formatMoney(discount) + ' LKR';
+                document.getElementById('pdfTotal').textContent = formatMoney(total) + ' LKR';
+                
+                // Fill footer two lines
+                document.getElementById('footerLine1').innerHTML = `This is a computer-generated invoice by SIX7 Plumbing to <strong>${escapeHtml(clientName)}</strong>`;
+                document.getElementById('footerLine2').innerHTML = `© 2026 SIX7 Plumbing All Rights Reserved.`;
+
+                // Generate PDF from the template
+                const element = document.getElementById('invoiceForPdf');
+                
+                const opt = {
+                    margin: [0.5, 0.5, 0.5, 0.5],
+                    filename: `SIX7_Plumbing_${invoiceNumber}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { 
+                        scale: 2, 
+                        letterRendering: true,
+                        useCORS: true,
+                        logging: false,
+                        windowWidth: 1200
+                    },
+                    jsPDF: { 
+                        unit: 'in', 
+                        format: 'a4', 
+                        orientation: 'portrait' 
+                    },
+                    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                };
+
+                // Button feedback
+                const originalText = document.getElementById('generatePdfBtn').textContent;
+                document.getElementById('generatePdfBtn').textContent = 'Generating PDF...';
+                document.getElementById('generatePdfBtn').disabled = true;
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    document.getElementById('generatePdfBtn').textContent = originalText;
+                    document.getElementById('generatePdfBtn').disabled = false;
+                }).catch(err => {
+                    console.error('PDF error:', err);
+                    document.getElementById('generatePdfBtn').textContent = originalText;
+                    document.getElementById('generatePdfBtn').disabled = false;
+                    alert('PDF generation failed. Please try again.');
+                });
+            });
+
+            // Initial render
+            renderEditorRows();
+        })();
+    </script>
+</body>
+</html>
