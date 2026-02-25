@@ -380,7 +380,7 @@
         .invoice-for-pdf table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0 5px 0;  /* Reduced bottom margin to bring totals closer */
+            margin: 15px 0 0 0;  /* NO bottom margin - table ends, totals start immediately */
             page-break-inside: auto;
             border-spacing: 0;
         }
@@ -423,12 +423,12 @@
         .invoice-for-pdf .totals {
             width: 350px;
             margin-left: auto;
-            margin-top: 0;        /* Remove auto margin-top */
-            margin-bottom: 10mm;   /* Keep space before footer */
+            margin-top: 0;        /* No top margin - sits directly under table */
+            margin-bottom: 10mm;
             page-break-inside: avoid;
             break-inside: avoid;
             position: relative;
-            top: -5px;            /* Slight negative offset to close gap even more */
+            top: 0;               /* No offset */
         }
         
         .invoice-for-pdf .totals table {
@@ -452,7 +452,7 @@
         
         /* Footer only copyright */
         .invoice-for-pdf .footer {
-            margin-top: 5mm;        /* Reduced from 10mm to keep totals closer but still spaced from footer */
+            margin-top: 5mm;
             text-align: center;
             font-size: 10px;
             color: #4a6579;
@@ -611,7 +611,7 @@
                 </table>
             </div>  <!-- end content-main -->
             
-            <!-- Totals with Discount - now much closer to the table -->
+            <!-- Totals with Discount - now directly below table (no gap) -->
             <div class="totals">
                 <table>
                     <tr>
