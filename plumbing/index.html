@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+    <title>SIX7 Plumbing | Book Emergency Plumber Colombo | 24/7 Service</title>
+    
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <style>
+        /* Custom styles */
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+        
+        .step-transition {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .step-hidden {
+            display: none;
+            opacity: 0;
+        }
+        .step-visible {
+            display: block;
+            opacity: 1;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .custom-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+        .safe-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* Sticky footer for action buttons */
+        .sticky-action-footer {
+            position: sticky;
+            bottom: 0;
+            z-index: 40;
+            background: inherit;
+            border-top: 1px solid rgba(255, 139, 77, 0.1);
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 12-hour time display styling */
+        .time-display-12hr {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .dark .time-display-12hr {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        
+        .time-display-12hr .ampm {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-left: 0.25rem;
+        }
+        
+        .dark .time-display-12hr .ampm {
+            color: #94a3b8;
+        }
+        
+        .time-control-btn {
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #334155;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 5rem;
+        }
+        
+        .dark .time-control-btn {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+        
+        .time-control-btn:hover {
+            border-color: #ff8b4d;
+            color: #ff8b4d;
+        }
+        
+        /* Error message styling */
+        .error-message {
+            color: #b13e3e;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .input-error {
+            border-color: #b13e3e !important;
+        }
+        
+        /* Location button styling */
+        .location-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            color: #334155;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .location-btn:hover {
+            border-color: #ff8b4d;
+            color: #ff8b4d;
+            background-color: rgba(255, 139, 77, 0.05);
+        }
+        
+        .location-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(255, 139, 77, 0.05);
+            border: 1px solid rgba(255, 139, 77, 0.2);
+            border-radius: 0.75rem;
+            display: none;
+        }
+        
+        .location-result.visible {
+            display: block;
+        }
+        
+        .location-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #ff8b4d;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+        
+        /* Breadcrumb styling */
+        .breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem 0;
+        }
+        
+        .breadcrumb-item {
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .breadcrumb-item.completed {
+            color: rgba(255, 139, 77, 0.8);
+        }
+        
+        .breadcrumb-item.active {
+            color: #ff8b4d;
+            font-weight: 700;
+        }
+        
+        .breadcrumb-item.pending {
+            color: #94a3b8;
+        }
+        
+        /* Card styling */
+        .booking-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 139, 77, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .booking-card {
+                padding: 2.5rem;
+            }
+        }
+        
+        .dark .booking-card {
+            background-color: rgba(35, 22, 15, 0.8);
+        }
+        
+        /* Emergency badge */
+        .emergency-badge {
+            background: #b13e3e;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        /* Glass effect */
+        .glass {
+            backdrop-filter: blur(12px);
+            background-color: rgba(248, 246, 245, 0.8);
+        }
+        
+        .dark .glass {
+            background-color: rgba(35, 22, 15, 0.8);
+        }
+        
+        /* WhatsApp button */
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+        }
+        
+        /* Service card */
+        .service-option {
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .service-option.selected {
+            border-color: #ff8b4d;
+            background-color: rgba(255, 139, 77, 0.05);
+        }
+        
+        /* Emergency redirect overlay */
+        .emergency-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .emergency-overlay.active {
+            display: flex;
+        }
+        
+        .emergency-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .dark .emergency-card {
+            background: #1a1a1a;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem !important;
+                line-height: 1.2 !important;
+            }
+            .booking-card {
+                padding: 1.25rem;
+            }
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff8b4d",
+                        "six7-navy": "#0b3b4f",
+                        "background-light": "#f8f6f5",
+                        "background-dark": "#23160f",
+                        "emergency": "#b13e3e",
+                        "whatsapp": "#25D366",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col overflow-x-hidden">
+    
+    <!-- Emergency Overlay -->
+    <div id="emergencyOverlay" class="emergency-overlay" onclick="closeEmergencyOverlay(event)">
+        <div class="emergency-card">
+            <div class="mb-4 p-4 rounded-full bg-emergency/10 inline-block">
+                <span class="material-symbols-outlined text-emergency text-5xl">emergency_home</span>
+            </div>
+            <h2 class="text-2xl font-black text-six7-navy dark:text-white mb-3">Emergency Detected!</h2>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">For immediate assistance, please call our 24/7 emergency line.</p>
+            <a href="tel:+94758244216" class="w-full bg-emergency text-white py-4 rounded-xl font-bold text-xl mb-3 flex items-center justify-center gap-2 hover:bg-emergency/90 transition-colors">
+                <span class="material-symbols-outlined">call</span>
+                Call Now: +94 75 824 4216
+            </a>
+            <button onclick="closeEmergencyOverlay(true)" class="w-full border border-slate-200 dark:border-slate-700 py-3 rounded-xl font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                Continue with Booking
+            </button>
+            <p class="text-xs text-slate-400 mt-4">We answer 24/7. Emergency team ready.</p>
+        </div>
+    </div>
+    
+    <!-- Emergency Bar -->
+    <div class="w-full bg-emergency py-2 px-3 text-center sticky top-0 z-50">
+        <p class="text-white text-xs sm:text-sm font-bold tracking-wide flex items-center justify-center gap-1 sm:gap-2">
+            <span class="material-symbols-outlined text-sm">emergency_home</span>
+            24/7 EMERGENCY: <a class="underline hover:no-underline font-bold" href="tel:+94758244216">+94 75 824 4216</a>
+        </p>
+    </div>
+    
+    <!-- Sticky Header -->
+    <header class="sticky top-[34px] sm:top-[36px] z-40 glass border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+            <div class="flex items-center gap-1 sm:gap-2">
+                <div class="size-8 sm:size-10 bg-six7-navy rounded-lg flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-xl sm:text-2xl">plumbing</span>
+                </div>
+                <a href="/" class="text-xl sm:text-2xl font-black text-six7-navy dark:text-slate-100 tracking-tight">SIX7<span class="text-primary">.</span>PLUMBING</a>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <a href="tel:+94758244216" class="md:hidden size-10 rounded-full bg-emergency flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">call</span>
+                </a>
+                <a href="https://wa.me/94758244216" class="md:hidden size-10 rounded-full bg-whatsapp flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">chat</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content with Booking Steps -->
+    <main class="flex-1 flex items-start justify-center py-6 px-4 md:px-0">
+        
+        <!-- STEP 1: Welcome Screen - Plumbing Style -->
+        <div id="step-1" class="step-visible step-transition w-full max-w-[600px] mx-auto">
+            <div class="booking-card flex flex-col items-center text-center">
+                <div class="mb-6 p-4 rounded-full bg-primary/10">
+                    <span class="material-symbols-outlined text-primary text-5xl">plumbing</span>
+                </div>
+                <div class="space-y-3 mb-8">
+                    <h1 class="text-slate-900 dark:text-slate-100 text-4xl md:text-5xl font-extrabold tracking-tight">
+                        Need a <span class="text-primary">plumber</span>?
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg">
+                        60-minute arrival guarantee. Fair pricing, no surprises.
+                    </p>
+                </div>
+                
+                <!-- Emergency Quick Options -->
+                <div class="w-full mb-8">
+                    <div class="bg-emergency/10 p-4 rounded-xl border border-emergency/20 mb-6">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-emergency text-2xl">emergency_home</span>
+                            <div class="text-left">
+                                <p class="font-bold text-emergency">Emergency? Call now</p>
+                                <a href="tel:+94758244216" class="text-lg font-black text-six7-navy dark:text-white">+94 75 824 4216</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col items-start w-full">
+                        <label class="text-slate-700 dark:text-slate-300 text-base font-semibold mb-3 ml-1" for="name-input">
+                            Your name <span class="text-emergency">*</span>
+                        </label>
+                        <div class="relative w-full">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">person</span>
+                            <input class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 focus:border-primary focus:ring-0 transition-all text-lg placeholder:text-slate-400" id="name-input" placeholder="Enter your full name" type="text"/>
+                        </div>
+                        <div id="name-error" class="error-message hidden">
+                            <span class="material-symbols-outlined">error</span>
+                            <span>Please enter your name</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full space-y-4">
+                    <button onclick="validateAndNext(1)" class="w-full py-4 px-8 rounded-full bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:shadow-primary/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
+                        <span>Start Booking</span>
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                    
+                    <a href="tel:+94758244216" class="w-full py-3 px-8 rounded-full border-2 border-emergency text-emergency font-bold text-base hover:bg-emergency/5 transition-colors flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">call</span>
+                        Emergency? Call Now
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 2: Contact Information -->
+        <div id="step-2" class="step-hidden step-transition w-full max-w-[640px] mx-auto">
+            <div class="booking-card">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Welcome
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">
+                        <span class="material-symbols-outlined text-sm">radio_button_checked</span> Contact
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Location</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Service</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Date/Time</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Confirm</span>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div class="bg-primary h-full w-1/5 rounded-full"></div>
+                </div>
+                
+                <!-- Hero Section -->
+                <div class="mb-6">
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl md:text-4xl font-black leading-tight tracking-tight mb-3">How can we reach you?</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-base">We'll confirm your booking and send updates.</p>
+                </div>
+                
+                <!-- Form -->
+                <div class="space-y-5">
+                    <!-- Phone Number Input -->
+                    <div class="flex flex-col gap-1">
+                        <label class="flex flex-col">
+                            <span class="text-slate-900 dark:text-slate-100 text-base font-semibold mb-2 flex items-center gap-1">
+                                Phone Number <span class="text-emergency">*</span>
+                            </span>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400">call</span>
+                                <input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 pl-12 pr-4 text-base" type="tel" id="phone-input" placeholder="+94 77 123 4567"/>
+                            </div>
+                            <div id="phone-error" class="error-message hidden">
+                                <span class="material-symbols-outlined">error</span>
+                                <span>Please enter a valid phone number</span>
+                            </div>
+                            <p class="text-slate-400 text-xs mt-1.5">We'll call to confirm your booking</p>
+                        </label>
+                    </div>
+                    
+                    <!-- Email Address Input -->
+                    <div class="flex flex-col gap-1">
+                        <label class="flex flex-col">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-slate-900 dark:text-slate-100 text-base font-semibold">Email Address</span>
+                                <span class="text-slate-400 text-xs font-normal italic">(Optional)</span>
+                            </div>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400">mail</span>
+                                <input class="form-input w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 pl-12 pr-4 text-base" type="email" id="email-input" placeholder="your@email.com"/>
+                            </div>
+                            <div id="email-error" class="error-message hidden">
+                                <span class="material-symbols-outlined">error</span>
+                                <span>Please enter a valid email address</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Emergency Preference - NOW TRIGGERS OVERLAY -->
+                    <div class="p-4 bg-emergency/5 rounded-xl border border-emergency/20">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" id="urgent-check" onchange="handleEmergencyCheck(this)" class="w-5 h-5 rounded border-emergency text-emergency focus:ring-emergency">
+                            <div>
+                                <span class="font-bold text-emergency text-sm">This is urgent / emergency</span>
+                                <p class="text-xs text-slate-500">For immediate emergencies, you'll be prompted to call</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Privacy Notice -->
+                <div class="mt-6 p-3 bg-six7-navy/5 rounded-xl border border-six7-navy/10 flex gap-3 items-start">
+                    <div class="bg-six7-navy/10 p-2 rounded-lg text-six7-navy">
+                        <span class="material-symbols-outlined">security</span>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-slate-100 font-bold text-sm">Your privacy matters</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs">We never share your information.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sticky Action Footer -->
+            <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-6 -mx-4 px-4 py-4">
+                <div class="flex flex-col gap-3">
+                    <button onclick="validateAndNext(2)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-14 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <span>Continue</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    <button onclick="prevStep(2)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 3: Location Selection -->
+        <div id="step-3" class="step-hidden step-transition w-full max-w-[640px] mx-auto">
+            <div class="booking-card">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Welcome
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">
+                        <span class="material-symbols-outlined text-sm">radio_button_checked</span> Location
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Service</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Date/Time</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Confirm</span>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div class="bg-primary h-full w-2/5 rounded-full"></div>
+                </div>
+                
+                <!-- Hero Section -->
+                <div class="mb-6">
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl md:text-4xl font-black leading-tight tracking-tight mb-3">Where should we come?</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-base">We serve all Colombo suburbs and beyond.</p>
+                </div>
+                
+                <!-- Location Options -->
+                <div class="space-y-5">
+                    <!-- Use My Location Button -->
+                    <div>
+                        <button onclick="getLocation()" class="location-btn">
+                            <span class="material-symbols-outlined">my_location</span>
+                            <span>Use My Current Location</span>
+                        </button>
+                        <div id="location-result" class="location-result">
+                            <p class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">📍 Your Location:</p>
+                            <div id="location-output" class="text-sm"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Or Enter Address Manually -->
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-white dark:bg-slate-900 text-slate-500">or enter manually</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Manual Address Input -->
+                    <div>
+                        <label class="text-slate-700 dark:text-slate-300 text-base font-semibold mb-2 block">
+                            Your address <span class="text-emergency">*</span>
+                        </label>
+                        <textarea id="manual-address" class="w-full p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50 focus:border-primary focus:ring-0 text-base" placeholder="House No, Street, City, Postal Code..." rows="3"></textarea>
+                        <p class="text-xs text-slate-400 mt-1">We'll send the nearest plumber to this location</p>
+                    </div>
+                    
+                    <!-- Common Areas Quick Select -->
+                    <div>
+                        <p class="text-sm font-medium text-slate-600 mb-2">Popular areas:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setArea('Colombo 3')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold hover:bg-primary hover:text-white transition-colors">Colombo 3</button>
+                            <button onclick="setArea('Colombo 7')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold hover:bg-primary hover:text-white transition-colors">Colombo 7</button>
+                            <button onclick="setArea('Kotte')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold hover:bg-primary hover:text-white transition-colors">Kotte</button>
+                            <button onclick="setArea('Nugegoda')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold hover:bg-primary hover:text-white transition-colors">Nugegoda</button>
+                            <button onclick="setArea('Dehiwala')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold hover:bg-primary hover:text-white transition-colors">Dehiwala</button>
+                            <button onclick="setArea('Mount Lavinia')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold hover:bg-primary hover:text-white transition-colors">Mt Lavinia</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Error -->
+                    <div id="location-error" class="error-message hidden">
+                        <span class="material-symbols-outlined">error</span>
+                        <span>Please provide your location</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sticky Action Footer -->
+            <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-6 -mx-4 px-4 py-4">
+                <div class="flex flex-col gap-3">
+                    <button onclick="validateAndNext(3)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-14 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <span>Continue</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    <button onclick="prevStep(3)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 4: Service Selection - Plumbing Services with Hourly Pricing -->
+        <div id="step-4" class="step-hidden step-transition w-full max-w-2xl mx-auto">
+            <div class="booking-card">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Welcome
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Location
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">
+                        <span class="material-symbols-outlined text-sm">radio_button_checked</span> Service
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Date/Time</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Confirm</span>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div class="bg-primary h-full w-3/5 rounded-full"></div>
+                </div>
+                
+                <!-- Headline -->
+                <div class="mb-6">
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight mb-2">What needs fixing?</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">All prices are per hour + parts +15%</p>
+                </div>
+                
+                <!-- Service Categories -->
+                <div class="space-y-3 mb-6">
+                    <h3 class="text-sm font-bold text-six7-navy dark:text-slate-300 uppercase tracking-wider">Emergency Services</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="3500" data-name="Emergency Leak Repair (per hour)" data-category="emergency">
+                                <div>
+                                    <p class="font-bold text-sm">Leak Repair</p>
+                                    <p class="text-xs text-slate-500">Burst pipes, visible leaks</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 3,500/hr</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="2500" data-name="Blocked Drain (per hour)" data-category="emergency">
+                                <div>
+                                    <p class="font-bold text-sm">Blocked Drain</p>
+                                    <p class="text-xs text-slate-500">Sinks, toilets, floor drains</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 2,500/hr</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="4000" data-name="Flood / Burst Pipe (per hour)" data-category="emergency">
+                                <div>
+                                    <p class="font-bold text-sm">Flood / Burst</p>
+                                    <p class="text-xs text-slate-500">Emergency shut-off</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 4,000/hr</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="2000" data-name="No Water Supply (per hour)" data-category="emergency">
+                                <div>
+                                    <p class="font-bold text-sm">No Water</p>
+                                    <p class="text-xs text-slate-500">Supply issue diagnosis</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 2,000/hr</span>
+                        </label>
+                    </div>
+                    
+                    <h3 class="text-sm font-bold text-six7-navy dark:text-slate-300 uppercase tracking-wider mt-4">Installations & Repairs</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="1500" data-name="Tap Installation (per hour)" data-category="installation">
+                                <div>
+                                    <p class="font-bold text-sm">Tap Installation</p>
+                                    <p class="text-xs text-slate-500">New tap or replacement</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 1,500/hr</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="2500" data-name="Toilet Repair (per hour)" data-category="installation">
+                                <div>
+                                    <p class="font-bold text-sm">Toilet Repair</p>
+                                    <p class="text-xs text-slate-500">Flushing issues, leaks</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 2,500/hr</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="3500" data-name="Water Heater (per hour)" data-category="installation">
+                                <div>
+                                    <p class="font-bold text-sm">Water Heater</p>
+                                    <p class="text-xs text-slate-500">Installation & repair</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 3,500/hr</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="4000" data-name="Water Pump (per hour)" data-category="installation">
+                                <div>
+                                    <p class="font-bold text-sm">Water Pump</p>
+                                    <p class="text-xs text-slate-500">Repair & installation</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">LKR 4,000/hr</span>
+                        </label>
+                    </div>
+                    
+                    <h3 class="text-sm font-bold text-six7-navy dark:text-slate-300 uppercase tracking-wider mt-4">Commercial & Large Projects</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="0" data-name="Commercial Project" data-category="commercial">
+                                <div>
+                                    <p class="font-bold text-sm">Commercial Project</p>
+                                    <p class="text-xs text-slate-500">Offices, apartments, hotels</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">Quote Required</span>
+                        </label>
+                        
+                        <label class="service-option flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/30 hover:border-primary/50 cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" class="service-checkbox custom-checkbox h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" data-price="0" data-name="Bathroom Renovation" data-category="commercial">
+                                <div>
+                                    <p class="font-bold text-sm">Bathroom Renovation</p>
+                                    <p class="text-xs text-slate-500">Full or partial renovation</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-primary">Quote Required</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Parts Information - REMOVED CHOICE, NOW STATIC -->
+                <div class="mb-6 p-4 bg-six7-navy/5 rounded-xl border border-six7-navy/10">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-six7-navy">handyman</span>
+                        <div>
+                            <h3 class="font-bold text-six7-navy dark:text-white">Parts Pricing</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-400">Parts cost +15% handling fee will be added to final bill</p>
+                        </div>
+                    </div>
+                    <!-- Hidden input to always pass 'premium' as default -->
+                    <input type="hidden" name="parts" value="premium" id="parts-value">
+                </div>
+                
+                <!-- Problem Description -->
+                <div>
+                    <label class="text-slate-700 dark:text-slate-300 font-semibold mb-2 block">
+                        Describe the problem (optional)
+                    </label>
+                    <textarea id="problem-description" rows="2" class="w-full p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50 focus:border-primary focus:ring-0 text-sm" placeholder="E.g., 'Kitchen sink leaking', 'Toilet not flushing properly'..."></textarea>
+                </div>
+                
+                <!-- Service Error -->
+                <div id="service-error" class="error-message hidden mt-4">
+                    <span class="material-symbols-outlined">error</span>
+                    <span>Please select at least one service</span>
+                </div>
+            </div>
+            
+            <!-- Sticky Action Footer -->
+            <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-6 -mx-4 px-4 py-4">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex flex-col">
+                        <span class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Selected</span>
+                        <p class="text-slate-900 dark:text-slate-100 font-black text-lg" id="selected-services">0 services</p>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Estimate</span>
+                        <p class="text-slate-900 dark:text-slate-100 font-black text-lg" id="estimated-total">From LKR 0/hr</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <button onclick="validateAndNext(4)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-14 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <span>Continue</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    <button onclick="prevStep(4)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 5: Date & Time Selection -->
+        <div id="step-5" class="step-hidden step-transition w-full max-w-[600px] mx-auto">
+            <div class="booking-card">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Welcome
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Location
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Service
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">
+                        <span class="material-symbols-outlined text-sm">radio_button_checked</span> Date/Time
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item pending">Confirm</span>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div class="bg-primary h-full w-4/5 rounded-full"></div>
+                </div>
+                
+                <!-- Headline -->
+                <div class="flex flex-col gap-2 mb-6">
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-bold leading-tight tracking-tight">When should we come?</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">We're available 24/7 for emergencies</p>
+                </div>
+                
+                <!-- Date Picker -->
+                <div class="mb-6">
+                    <label class="text-slate-700 dark:text-slate-300 text-sm font-medium mb-2 block">Select date:</label>
+                    <input type="date" id="stock-date-picker" class="w-full p-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800/50 focus:border-primary focus:ring-0" min="">
+                    <div id="date-error" class="error-message hidden mt-2">
+                        <span class="material-symbols-outlined">error</span>
+                        <span>Please select a valid date</span>
+                    </div>
+                </div>
+                
+                <!-- Time Selection -->
+                <div class="mb-6">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="material-symbols-outlined text-primary">schedule</span>
+                        <h3 class="text-slate-900 dark:text-slate-100 font-bold">Select Time</h3>
+                    </div>
+                    
+                    <div class="flex items-center justify-between gap-3 mb-4">
+                        <button onclick="adjustTime(-15)" class="time-control-btn flex-1">
+                            <span class="material-symbols-outlined">remove</span>
+                            <span class="hidden sm:inline">15 min</span>
+                        </button>
+                        
+                        <div id="time-display-12hr" class="time-display-12hr flex-1">
+                            <span id="display-hour">12</span>
+                            <span>:</span>
+                            <span id="display-minute">00</span>
+                            <span id="display-ampm" class="ampm">PM</span>
+                        </div>
+                        
+                        <button onclick="adjustTime(15)" class="time-control-btn flex-1">
+                            <span class="material-symbols-outlined">add</span>
+                            <span class="hidden sm:inline">15 min</span>
+                        </button>
+                    </div>
+                    
+                    <input type="hidden" id="time-24hr" value="">
+                    
+                    <div id="time-error" class="error-message hidden">
+                        <span class="material-symbols-outlined">error</span>
+                        <span id="time-error-text">Please select a valid time</span>
+                    </div>
+                </div>
+                
+                <!-- Emergency Note -->
+                <div class="mt-4 p-4 bg-emergency/5 rounded-xl border border-emergency/10">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-emergency">emergency_home</span>
+                        <div>
+                            <p class="font-bold text-sm">Need emergency service now?</p>
+                            <p class="text-xs text-slate-500">Call us immediately: <a href="tel:+94758244216" class="font-bold text-emergency">+94 75 824 4216</a></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Selected Slot Display -->
+                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">event</span>
+                            <span class="text-sm font-medium">Selected:</span>
+                        </div>
+                        <span class="text-sm font-bold" id="selected-datetime-display">Not selected</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sticky Action Footer -->
+            <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-6 -mx-4 px-4 py-4">
+                <div class="flex flex-col gap-3">
+                    <button onclick="validateAndNext(5)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-14 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <span>Review Booking</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    <button onclick="prevStep(5)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 6: Review & Confirm -->
+        <div id="step-6" class="step-hidden step-transition w-full max-w-[600px] mx-auto">
+            <div class="booking-card">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Welcome
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Location
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Service
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item completed">
+                        <span class="material-symbols-outlined text-sm">check_circle</span> Date/Time
+                    </span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">
+                        <span class="material-symbols-outlined text-sm">radio_button_checked</span> Confirm
+                    </span>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-6 overflow-hidden">
+                    <div class="bg-primary h-full w-full rounded-full"></div>
+                </div>
+
+                <!-- Header -->
+                <div class="flex flex-col gap-2 mb-6">
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight">Review your booking</h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">Please check all details before confirming</p>
+                </div>
+
+                <!-- Booking Summary Card -->
+                <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 mb-6">
+                    <div class="space-y-4" id="booking-summary-items"></div>
+                    
+                    <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <div class="flex justify-between font-bold">
+                            <span>Labor Estimate</span>
+                            <span class="text-primary text-xl" id="final-total">LKR 0/hr</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">+ parts cost +15% handling fee</p>
+                    </div>
+                </div>
+                
+                <!-- Parts Fee Notice -->
+                <div class="p-4 bg-six7-navy/5 rounded-xl border border-six7-navy/10 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-six7-navy">info</span>
+                        <p class="text-xs"><span class="font-bold">Parts:</span> Actual parts cost +15% handling fee will be added to final bill</p>
+                    </div>
+                </div>
+                
+                <!-- Confirmation Note -->
+                <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 flex gap-3 items-start mb-4">
+                    <div class="bg-primary/10 p-2 rounded-lg text-primary">
+                        <span class="material-symbols-outlined">info</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">By confirming you agree:</h4>
+                        <ul class="text-xs text-slate-600 dark:text-slate-400 list-disc ml-4 mt-1">
+                            <li>We'll call to confirm arrival time</li>
+                            <li>Emergency jobs get priority dispatch</li>
+                            <li>Free quote before work starts</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Payment Method - CARD REMOVED, ONLY CASH & BANK TRANSFER -->
+                <div class="mb-4">
+                    <h3 class="font-bold mb-3">Payment method</h3>
+                    <div class="flex gap-3">
+                        <label class="flex-1 p-3 rounded-xl border-2 border-primary/20 has-[:checked]:border-primary has-[:checked]:bg-primary/5 cursor-pointer text-center">
+                            <input type="radio" name="payment" value="cash" checked class="hidden">
+                            <span class="material-symbols-outlined text-primary">payments</span>
+                            <span class="block text-xs font-medium mt-1">Cash</span>
+                        </label>
+                        <label class="flex-1 p-3 rounded-xl border-2 border-primary/20 has-[:checked]:border-primary has-[:checked]:bg-primary/5 cursor-pointer text-center">
+                            <input type="radio" name="payment" value="bank" class="hidden">
+                            <span class="material-symbols-outlined text-primary">account_balance</span>
+                            <span class="block text-xs font-medium mt-1">Bank Transfer*</span>
+                        </label>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-2 text-center">*Online bank transfer via an online banking.</p>
+                </div>
+            </div>
+            
+            <!-- Sticky Action Footer -->
+            <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-6 -mx-4 px-4 py-4">
+                <div class="flex flex-col gap-3">
+                    <button onclick="validateAndNext(6)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-14 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <span>Confirm Booking</span>
+                        <span class="material-symbols-outlined">check_circle</span>
+                    </button>
+                    <button onclick="prevStep(6)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 7: Confirmation -->
+        <div id="step-7" class="step-hidden step-transition w-full max-w-[560px] mx-auto">
+            <div class="booking-card">
+                <!-- Success Illustration -->
+                <div class="flex flex-col items-center pt-4 pb-6 text-center">
+                    <div class="mb-4 flex items-center justify-center size-20 rounded-full bg-green-500/10 text-green-500">
+                        <span class="material-symbols-outlined !text-5xl">check_circle</span>
+                    </div>
+                    <h1 class="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight mb-2">
+                        Booking Confirmed!
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm max-w-sm">
+                        We'll call you within 15 minutes to confirm arrival.
+                    </p>
+                </div>
+
+                <!-- Summary Details -->
+                <div class="px-4 py-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl mb-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Appointment Summary</h3>
+                    <div class="space-y-3 text-sm" id="confirmation-details"></div>
+                </div>
+
+                <!-- Emergency Note -->
+                <div class="p-4 bg-emergency/5 rounded-xl border border-emergency/10 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emergency">emergency_home</span>
+                        <p class="text-xs">For immediate help: <a href="tel:+94758244216" class="font-bold text-emergency">+94 75 824 4216</a></p>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex flex-col gap-3">
+                    <button onclick="addToCalendar()" class="w-full bg-six7-navy hover:bg-six7-navy/90 text-white font-bold h-12 rounded-xl flex items-center justify-center gap-2 text-sm">
+                        <span class="material-symbols-outlined">event_available</span>
+                        Add to Calendar
+                    </button>
+                    <a href="https://wa.me/94758244216" class="w-full bg-whatsapp hover:bg-whatsapp/90 text-white font-bold h-12 rounded-xl flex items-center justify-center gap-2 text-sm">
+                        <span class="material-symbols-outlined">chat</span>
+                        WhatsApp Us
+                    </a>
+                    <button onclick="resetToStep1()" class="mt-2 text-center text-primary font-bold text-sm hover:underline flex items-center justify-center gap-1">
+                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                        Book Another Service
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-six7-navy text-white mt-8 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-300">
+            <p>© 2026 SIX7 Plumbing. 24/7 Emergency: <a href="tel:+94758244216" class="text-primary font-bold">+94 75 824 4216</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        let currentStep = 1;
+        const totalSteps = 7;
+        let selectedServices = [];
+        let selectedDate = null;
+        let locationData = { coords: null, address: null };
+        let currentHour = 12;
+        let currentMinute = 0;
+        let currentAmPm = 'PM';
+        
+        const FORM_SUBMIT_URL = 'https://formsubmit.co/ajax/plumbing@six7.lk';
+        
+        // Emergency Overlay Function
+        function handleEmergencyCheck(checkbox) {
+            if (checkbox.checked) {
+                document.getElementById('emergencyOverlay').classList.add('active');
+                // Uncheck it so they have to check again if they continue
+                setTimeout(() => {
+                    checkbox.checked = false;
+                }, 500);
+            }
+        }
+        
+        function closeEmergencyOverlay(event, continueBooking = false) {
+            if (event === true || (event.target && event.target.id === 'emergencyOverlay')) {
+                document.getElementById('emergencyOverlay').classList.remove('active');
+            } else if (event && event.target && event.target.closest('.emergency-card')) {
+                // Click inside card - do nothing
+                return;
+            } else if (event && event.target && event.target.tagName === 'BUTTON' && event.target.innerText.includes('Continue')) {
+                document.getElementById('emergencyOverlay').classList.remove('active');
+            } else if (event && event.target && event.target.id === 'emergencyOverlay') {
+                document.getElementById('emergencyOverlay').classList.remove('active');
+            }
+        }
+        
+        // Sri Lanka timezone helper
+        function getSriLankaTime() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            return new Date(utc + (5.5 * 60 * 60 * 1000));
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep(1);
+            initializeServiceCheckboxes();
+            
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            const datePicker = document.getElementById('stock-date-picker');
+            if (datePicker) {
+                datePicker.min = today;
+                datePicker.value = today;
+                handleStockDateChange(today);
+            }
+            
+            initializeTimeToNextSlot();
+            updateTimeDisplay();
+        });
+        
+        // Navigation Functions
+        function showStep(stepNumber) {
+            for (let i = 1; i <= totalSteps; i++) {
+                const step = document.getElementById(`step-${i}`);
+                if (step) {
+                    step.classList.add('step-hidden');
+                    step.classList.remove('step-visible');
+                }
+            }
+            
+            const currentStepElement = document.getElementById(`step-${stepNumber}`);
+            if (currentStepElement) {
+                currentStepElement.classList.remove('step-hidden');
+                currentStepElement.classList.add('step-visible');
+            }
+            
+            currentStep = stepNumber;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (stepNumber === 6) {
+                updateBookingSummary();
+            } else if (stepNumber === 7) {
+                updateConfirmationDetails();
+            }
+        }
+        
+        function nextStep(currentStepNumber) {
+            if (currentStepNumber < totalSteps) {
+                showStep(currentStepNumber + 1);
+            }
+        }
+        
+        function prevStep(currentStepNumber) {
+            if (currentStepNumber > 1) {
+                showStep(currentStepNumber - 1);
+            }
+        }
+        
+        function resetToStep1() {
+            showStep(1);
+        }
+        
+        // Validation
+        function validateAndNext(stepNumber) {
+            let isValid = false;
+            
+            switch(stepNumber) {
+                case 1:
+                    isValid = validateStep1();
+                    break;
+                case 2:
+                    isValid = validateStep2();
+                    break;
+                case 3:
+                    isValid = validateStep3();
+                    break;
+                case 4:
+                    isValid = validateStep4();
+                    break;
+                case 5:
+                    isValid = validateStep5();
+                    break;
+                case 6:
+                    isValid = true;
+                    if (isValid) {
+                        submitBooking();
+                        return;
+                    }
+                    break;
+            }
+            
+            if (isValid) {
+                nextStep(stepNumber);
+            }
+        }
+        
+        function validateStep1() {
+            const nameInput = document.getElementById('name-input');
+            const nameError = document.getElementById('name-error');
+            
+            if (!nameInput || !nameInput.value.trim()) {
+                if (nameError) nameError.classList.remove('hidden');
+                if (nameInput) nameInput.classList.add('input-error');
+                return false;
+            }
+            
+            if (nameError) nameError.classList.add('hidden');
+            if (nameInput) nameInput.classList.remove('input-error');
+            return true;
+        }
+        
+        function validateStep2() {
+            const phoneInput = document.getElementById('phone-input');
+            const phoneError = document.getElementById('phone-error');
+            
+            if (!phoneInput || !phoneInput.value.trim() || phoneInput.value.length < 10) {
+                if (phoneError) phoneError.classList.remove('hidden');
+                if (phoneInput) phoneInput.classList.add('input-error');
+                return false;
+            }
+            
+            if (phoneError) phoneError.classList.add('hidden');
+            if (phoneInput) phoneInput.classList.remove('input-error');
+            return true;
+        }
+        
+        function validateStep3() {
+            const manualAddress = document.getElementById('manual-address');
+            const locationError = document.getElementById('location-error');
+            
+            if (!manualAddress || !manualAddress.value.trim()) {
+                if (locationError) locationError.classList.remove('hidden');
+                return false;
+            }
+            
+            if (locationError) locationError.classList.add('hidden');
+            locationData.address = manualAddress.value;
+            return true;
+        }
+        
+        function validateStep4() {
+            const checkboxes = document.querySelectorAll('.service-checkbox:checked');
+            const serviceError = document.getElementById('service-error');
+            
+            if (checkboxes.length === 0) {
+                if (serviceError) serviceError.classList.remove('hidden');
+                return false;
+            }
+            
+            if (serviceError) serviceError.classList.add('hidden');
+            
+            // Update selected services
+            selectedServices = Array.from(checkboxes).map(cb => ({
+                name: cb.dataset.name,
+                price: parseFloat(cb.dataset.price) || 0,
+                category: cb.dataset.category
+            }));
+            
+            return true;
+        }
+        
+        function validateStep5() {
+            const dateError = document.getElementById('date-error');
+            const timeError = document.getElementById('time-error');
+            const timeErrorText = document.getElementById('time-error-text');
+            
+            if (!selectedDate) {
+                if (dateError) dateError.classList.remove('hidden');
+                return false;
+            }
+            if (dateError) dateError.classList.add('hidden');
+            
+            const selectedDateTime = getSelectedDateTime();
+            if (!selectedDateTime) {
+                if (timeErrorText) timeErrorText.textContent = 'Please select a valid time';
+                if (timeError) timeError.classList.remove('hidden');
+                return false;
+            }
+            
+            const sriLankaNow = getSriLankaTime();
+            if (selectedDateTime < sriLankaNow) {
+                if (timeErrorText) timeErrorText.textContent = 'Selected time is in the past';
+                if (timeError) timeError.classList.remove('hidden');
+                return false;
+            }
+            
+            if (timeError) timeError.classList.add('hidden');
+            
+            const display = document.getElementById('selected-datetime-display');
+            if (display) {
+                display.textContent = `${selectedDate.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })} at ${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}`;
+            }
+            
+            return true;
+        }
+        
+        // Service Functions
+        function initializeServiceCheckboxes() {
+            const checkboxes = document.querySelectorAll('.service-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateServiceSummary);
+            });
+        }
+        
+        function updateServiceSummary() {
+            const checkboxes = document.querySelectorAll('.service-checkbox:checked');
+            const count = checkboxes.length;
+            let total = 0;
+            
+            checkboxes.forEach(cb => {
+                total += parseFloat(cb.dataset.price) || 0;
+            });
+            
+            document.getElementById('selected-services').textContent = 
+                count === 0 ? '0 services' : 
+                count === 1 ? '1 service' : 
+                `${count} services`;
+            
+            document.getElementById('estimated-total').textContent = 
+                total > 0 ? `From LKR ${total.toLocaleString()}/hr` : 'Quote Required';
+        }
+        
+        // Location Functions
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            }
+        }
+        
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const mapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+            
+            locationData.coords = `${lat},${lng}`;
+            
+            const output = document.getElementById("location-output");
+            if (output) {
+                output.innerHTML = `
+                    <p class="text-sm mb-2">📍 Coordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}</p>
+                    <a href="${mapsLink}" target="_blank" class="location-link">
+                        <span class="material-symbols-outlined text-sm">map</span>
+                        View on Google Maps
+                    </a>
+                `;
+            }
+            
+            const result = document.getElementById('location-result');
+            if (result) result.classList.add('visible');
+        }
+        
+        function showError(error) {
+            const output = document.getElementById("location-output");
+            if (output) {
+                output.innerHTML = `<p class="text-sm text-red-500">Please enter your address manually</p>`;
+            }
+            const result = document.getElementById('location-result');
+            if (result) result.classList.add('visible');
+        }
+        
+        function setArea(area) {
+            const addressInput = document.getElementById('manual-address');
+            if (addressInput) {
+                addressInput.value = area;
+            }
+        }
+        
+        // Date/Time Functions
+        function handleStockDateChange(dateStr) {
+            if (dateStr) {
+                selectedDate = new Date(dateStr);
+                selectedDate.setHours(0, 0, 0, 0);
+            }
+        }
+        
+        function initializeTimeToNextSlot() {
+            const sriLankaNow = getSriLankaTime();
+            let targetTime = new Date(sriLankaNow);
+            targetTime.setMinutes(targetTime.getMinutes() + 30);
+            
+            let minutes = targetTime.getMinutes();
+            minutes = Math.ceil(minutes / 15) * 15;
+            if (minutes >= 60) {
+                targetTime.setHours(targetTime.getHours() + 1);
+                minutes = 0;
+            }
+            targetTime.setMinutes(minutes);
+            
+            let hours24 = targetTime.getHours();
+            currentAmPm = hours24 >= 12 ? 'PM' : 'AM';
+            currentHour = hours24 % 12;
+            if (currentHour === 0) currentHour = 12;
+            currentMinute = targetTime.getMinutes();
+        }
+        
+        function adjustTime(minutesChange) {
+            let hours24 = currentHour;
+            if (currentAmPm === 'PM' && currentHour !== 12) hours24 += 12;
+            if (currentAmPm === 'AM' && currentHour === 12) hours24 = 0;
+            
+            let totalMinutes = hours24 * 60 + currentMinute + minutesChange;
+            
+            if (totalMinutes < 0) totalMinutes += 24 * 60;
+            if (totalMinutes >= 24 * 60) totalMinutes -= 24 * 60;
+            
+            hours24 = Math.floor(totalMinutes / 60);
+            currentMinute = totalMinutes % 60;
+            
+            currentAmPm = hours24 >= 12 ? 'PM' : 'AM';
+            currentHour = hours24 % 12;
+            if (currentHour === 0) currentHour = 12;
+            
+            updateTimeDisplay();
+        }
+        
+        function updateTimeDisplay() {
+            const hourEl = document.getElementById('display-hour');
+            const minuteEl = document.getElementById('display-minute');
+            const ampmEl = document.getElementById('display-ampm');
+            const time24El = document.getElementById('time-24hr');
+            
+            if (hourEl) hourEl.textContent = currentHour.toString().padStart(2, '0');
+            if (minuteEl) minuteEl.textContent = currentMinute.toString().padStart(2, '0');
+            if (ampmEl) ampmEl.textContent = currentAmPm;
+            
+            if (time24El) {
+                let hours24 = currentHour;
+                if (currentAmPm === 'PM' && currentHour !== 12) hours24 += 12;
+                if (currentAmPm === 'AM' && currentHour === 12) hours24 = 0;
+                time24El.value = `${hours24.toString().padStart(2, '0')}:${currentMinute.toString().padStart(2, '0')}`;
+            }
+        }
+        
+        function getSelectedDateTime() {
+            if (!selectedDate) return null;
+            
+            const dateTime = new Date(selectedDate);
+            let hours24 = currentHour;
+            if (currentAmPm === 'PM' && currentHour !== 12) hours24 += 12;
+            if (currentAmPm === 'AM' && currentHour === 12) hours24 = 0;
+            
+            dateTime.setHours(hours24, currentMinute, 0);
+            return dateTime;
+        }
+        
+        // Summary Functions
+        function updateBookingSummary() {
+            const itemsContainer = document.getElementById('booking-summary-items');
+            const finalTotal = document.getElementById('final-total');
+            const name = document.getElementById('name-input')?.value || 'Guest';
+            const phone = document.getElementById('phone-input')?.value || '';
+            const address = document.getElementById('manual-address')?.value || 'Location provided';
+            const problem = document.getElementById('problem-description')?.value || 'No description';
+            
+            let itemsHTML = `
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Name:</span>
+                    <span class="font-medium">${name}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Phone:</span>
+                    <span class="font-medium">${phone}</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Location:</span>
+                    <span class="font-medium text-right">${address.substring(0, 30)}${address.length > 30 ? '...' : ''}</span>
+                </div>
+            `;
+            
+            let subtotal = 0;
+            selectedServices.forEach(service => {
+                subtotal += service.price;
+                itemsHTML += `
+                    <div class="flex justify-between text-sm border-t border-slate-200 dark:border-slate-700 pt-2">
+                        <span>${service.name}</span>
+                        <span class="font-medium">${service.price > 0 ? 'LKR ' + service.price.toLocaleString() + '/hr' : 'Quote'}</span>
+                    </div>
+                `;
+            });
+            
+            if (problem) {
+                itemsHTML += `
+                    <div class="text-sm border-t border-slate-200 dark:border-slate-700 pt-2">
+                        <span class="text-slate-500">Issue:</span>
+                        <p class="mt-1 text-xs">${problem}</p>
+                    </div>
+                `;
+            }
+            
+            if (itemsContainer) itemsContainer.innerHTML = itemsHTML;
+            if (finalTotal) finalTotal.textContent = subtotal > 0 ? `LKR ${subtotal.toLocaleString()}/hr` : 'Quote Required';
+        }
+        
+        function updateConfirmationDetails() {
+            const details = document.getElementById('confirmation-details');
+            const name = document.getElementById('name-input')?.value || 'Guest';
+            const address = document.getElementById('manual-address')?.value || 'Location provided';
+            
+            if (details && selectedDate) {
+                details.innerHTML = `
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Name:</span>
+                        <span class="font-bold">${name}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Date:</span>
+                        <span class="font-bold">${selectedDate.toLocaleDateString()}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Time:</span>
+                        <span class="font-bold">${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-500">Location:</span>
+                        <span class="font-bold text-right">${address.substring(0, 20)}${address.length > 20 ? '...' : ''}</span>
+                    </div>
+                `;
+            }
+        }
+        
+        // Form Submission
+        async function submitBooking() {
+            const name = document.getElementById('name-input')?.value || '';
+            const phone = document.getElementById('phone-input')?.value || '';
+            const email = document.getElementById('email-input')?.value || '';
+            const address = document.getElementById('manual-address')?.value || '';
+            const problem = document.getElementById('problem-description')?.value || '';
+            const urgent = document.getElementById('urgent-check')?.checked || false;
+            const payment = document.querySelector('input[name="payment"]:checked')?.value || 'cash';
+            
+            let paymentText = 'Cash on Arrival';
+            if (payment === 'bank') paymentText = 'Online Bank Transfer';
+            
+            const services = selectedServices.map(s => s.name).join(', ');
+            const subtotal = selectedServices.reduce((sum, s) => sum + s.price, 0);
+            
+            const formData = {
+                _subject: `New Plumbing Booking from ${name}`,
+                name: name,
+                phone: phone,
+                email: email || 'Not provided',
+                location: address,
+                services: services,
+                service_count: selectedServices.length,
+                problem_description: problem || 'No description',
+                urgent: urgent ? 'Yes - Emergency' : 'No',
+                parts_policy: 'Parts cost +15% handling fee applies',
+                date: selectedDate ? selectedDate.toLocaleDateString() : 'Not selected',
+                time: `${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}`,
+                payment_method: paymentText,
+                estimated_labor: subtotal > 0 ? `LKR ${subtotal.toLocaleString()}/hr` : 'Quote Required',
+                _template: 'table',
+                _captcha: 'false'
+            };
+            
+            try {
+                const response = await fetch(FORM_SUBMIT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    nextStep(6);
+                } else {
+                    alert('Booking submitted! We\'ll call you shortly.');
+                    nextStep(6);
+                }
+            } catch (error) {
+                alert('Booking received! We\'ll call you shortly.');
+                nextStep(6);
+            }
+        }
+        
+        // Calendar Function
+        function addToCalendar() {
+            const selectedDateTime = getSelectedDateTime();
+            if (!selectedDateTime) return;
+            
+            const endDate = new Date(selectedDateTime);
+            endDate.setHours(endDate.getHours() + 1);
+            
+            const formatDate = (date) => {
+                return date.toISOString().replace(/-|:|\.\d+/g, '');
+            };
+            
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//SIX7 Plumbing//Booking//EN
+BEGIN:VEVENT
+UID:${new Date().getTime()}@six7.lk
+DTSTAMP:${formatDate(new Date())}
+DTSTART:${formatDate(selectedDateTime)}
+DTEND:${formatDate(endDate)}
+SUMMARY:Plumbing Appointment with SIX7
+DESCRIPTION:Plumbing service booking
+LOCATION:${locationData.address || 'Customer location'}
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Plumber arriving in 15 minutes
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+            
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'plumbing-appointment.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
