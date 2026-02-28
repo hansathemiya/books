@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-    <title>White Label - Complete 6-Step Booking Flow</title>
+    <title>White Label - Complete 7-Step Booking Flow</title>
     
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -151,6 +151,90 @@
         }
         
         input[type="date"]:focus {
+            outline: none;
+            border-color: #9213ec;
+            box-shadow: 0 0 0 2px rgba(146, 19, 236, 0.2);
+        }
+        
+        /* Location button styling */
+        .location-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            color: #334155;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .dark .location-btn {
+            background-color: #1e293b;
+            border-color: #475569;
+            color: #cbd5e1;
+        }
+        
+        .location-btn:hover {
+            border-color: #9213ec;
+            color: #9213ec;
+            background-color: rgba(146, 19, 236, 0.05);
+        }
+        
+        .location-btn .material-symbols-outlined {
+            font-size: 1.5rem;
+        }
+        
+        .location-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(146, 19, 236, 0.05);
+            border: 1px solid rgba(146, 19, 236, 0.2);
+            border-radius: 0.75rem;
+            display: none;
+        }
+        
+        .location-result.visible {
+            display: block;
+        }
+        
+        .location-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #9213ec;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+        
+        .location-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Address input styling */
+        .address-input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background-color: #f8fafc;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .dark .address-input {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        
+        .address-input:focus {
             outline: none;
             border-color: #9213ec;
             box-shadow: 0 0 0 2px rgba(146, 19, 236, 0.2);
@@ -332,6 +416,8 @@
                             <span class="material-symbols-outlined text-sm">radio_button_checked</span> Contact
                         </span>
                         <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item pending">Location</span>
+                        <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item pending">Services</span>
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item pending">Date/Time</span>
@@ -341,7 +427,7 @@
                     
                     <!-- Progress Bar -->
                     <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-8 overflow-hidden">
-                        <div class="bg-primary h-full w-1/4 rounded-full"></div>
+                        <div class="bg-primary h-full w-1/5 rounded-full"></div>
                     </div>
                     
                     <!-- Hero Section -->
@@ -405,7 +491,7 @@
                 <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-8 -mx-4 md:-mx-6 px-4 md:px-6 py-4">
                     <div class="flex flex-col gap-3">
                         <button onclick="validateAndNext(2)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
-                            <span>Continue to Services</span>
+                            <span>Continue to Location</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
                         <button onclick="prevStep(2)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
@@ -416,8 +502,8 @@
                 </div>
             </div>
 
-            <!-- STEP 3: Service Selection -->
-            <div id="step-3" class="step-hidden step-transition w-full max-w-2xl mx-auto">
+            <!-- STEP 3: Location Selection -->
+            <div id="step-3" class="step-hidden step-transition w-full max-w-[640px] mx-auto">
                 <div class="booking-card">
                     <!-- Breadcrumbs - consistent style -->
                     <div class="breadcrumb">
@@ -427,6 +513,116 @@
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item completed">
                             <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                        </span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item active">
+                            <span class="material-symbols-outlined text-sm">radio_button_checked</span> Location
+                        </span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item pending">Services</span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item pending">Date/Time</span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item pending">Payment</span>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-8 overflow-hidden">
+                        <div class="bg-primary h-full w-2/5 rounded-full"></div>
+                    </div>
+                    
+                    <!-- Hero Section -->
+                    <div class="mb-8">
+                        <h1 class="text-slate-900 dark:text-slate-100 text-3xl md:text-4xl font-black leading-tight tracking-tight mb-4">Where should we come?</h1>
+                        <p class="text-slate-600 dark:text-slate-400 text-lg">Share your location so we can send a service provider to you.</p>
+                    </div>
+                    
+                    <!-- Location Options -->
+                    <div class="space-y-6">
+                        <!-- Use My Location Button -->
+                        <div>
+                            <button onclick="getLocation()" class="location-btn">
+                                <span class="material-symbols-outlined">my_location</span>
+                                <span>Use My Current Location</span>
+                            </button>
+                            <div id="location-result" class="location-result">
+                                <p class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">📍 Your Location:</p>
+                                <div id="location-output" class="text-sm"></div>
+                                <input type="hidden" id="location-coords" value="">
+                                <input type="hidden" id="location-link" value="">
+                            </div>
+                        </div>
+                        
+                        <!-- Or Enter Address Manually -->
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-4 bg-white dark:bg-slate-900 text-slate-500">or</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Manual Address Input -->
+                        <div>
+                            <label class="text-slate-700 dark:text-slate-300 text-base font-semibold mb-2 block">
+                                Enter your address <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="manual-address" class="address-input" placeholder="House No, Street, City, Postal Code..." rows="3"></textarea>
+                            <p class="text-xs text-slate-400 mt-1">Please provide your complete address for service delivery</p>
+                        </div>
+                        
+                        <!-- Location Error -->
+                        <div id="location-error" class="error-message hidden">
+                            <span class="material-symbols-outlined">error</span>
+                            <span>Please provide your location (use current location or enter address)</span>
+                        </div>
+                        
+                        <!-- Location Preview (if both provided) -->
+                        <div id="location-preview" class="hidden mt-4 p-4 bg-primary/5 rounded-xl border border-primary/10">
+                            <div class="flex items-start gap-3">
+                                <div class="bg-primary/10 p-2 rounded-lg text-primary">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-slate-900 dark:text-slate-100 font-bold text-sm">Service Location</h4>
+                                    <p id="preview-text" class="text-slate-600 dark:text-slate-400 text-xs mt-1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sticky Action Footer -->
+                <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-8 -mx-4 md:-mx-6 px-4 md:px-6 py-4">
+                    <div class="flex flex-col gap-3">
+                        <button onclick="validateAndNext(3)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                            <span>Continue to Services</span>
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                        <button onclick="prevStep(3)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                            <span class="material-symbols-outlined text-base">arrow_back</span>
+                            Back to Contact
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Service Selection -->
+            <div id="step-4" class="step-hidden step-transition w-full max-w-2xl mx-auto">
+                <div class="booking-card">
+                    <!-- Breadcrumbs - consistent style -->
+                    <div class="breadcrumb">
+                        <span class="breadcrumb-item completed">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Welcome
+                        </span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item completed">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                        </span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item completed">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Location
                         </span>
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item active">
@@ -440,7 +636,7 @@
                     
                     <!-- Progress Bar -->
                     <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-8 overflow-hidden">
-                        <div class="bg-primary h-full w-1/2 rounded-full"></div>
+                        <div class="bg-primary h-full w-3/5 rounded-full"></div>
                     </div>
                     
                     <!-- Headline -->
@@ -525,20 +721,20 @@
                         </div>
                     </div>
                     <div class="flex flex-col gap-3">
-                        <button onclick="validateAndNext(3)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <button onclick="validateAndNext(4)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
                             <span>Continue</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
-                        <button onclick="prevStep(3)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <button onclick="prevStep(4)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
                             <span class="material-symbols-outlined text-base">arrow_back</span>
-                            Back to Contact
+                            Back to Location
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 4: Date & Time Selection - Updated with stock date picker and 12-hour time control -->
-            <div id="step-4" class="step-hidden step-transition w-full max-w-[600px] mx-auto">
+            <!-- STEP 5: Date & Time Selection -->
+            <div id="step-5" class="step-hidden step-transition w-full max-w-[600px] mx-auto">
                 <div class="booking-card">
                     <!-- Breadcrumbs - consistent style -->
                     <div class="breadcrumb">
@@ -548,6 +744,10 @@
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item completed">
                             <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                        </span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item completed">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Location
                         </span>
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item completed">
@@ -563,7 +763,7 @@
                     
                     <!-- Progress Bar -->
                     <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mb-8 overflow-hidden">
-                        <div class="bg-primary h-full w-3/4 rounded-full"></div>
+                        <div class="bg-primary h-full w-4/5 rounded-full"></div>
                     </div>
                     
                     <!-- Headline -->
@@ -637,11 +837,11 @@
                 <!-- Sticky Action Footer -->
                 <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-8 -mx-4 md:-mx-6 px-4 md:px-6 py-4">
                     <div class="flex flex-col gap-3">
-                        <button onclick="validateAndNext(4)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <button onclick="validateAndNext(5)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
                             <span>Proceed to Payment</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
-                        <button onclick="prevStep(4)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <button onclick="prevStep(5)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
                             <span class="material-symbols-outlined text-base">arrow_back</span>
                             Back to Services
                         </button>
@@ -649,8 +849,8 @@
                 </div>
             </div>
 
-            <!-- STEP 5: Payment & Summary -->
-            <div id="step-5" class="step-hidden step-transition w-full max-w-[960px] mx-auto">
+            <!-- STEP 6: Payment & Summary -->
+            <div id="step-6" class="step-hidden step-transition w-full max-w-[960px] mx-auto">
                 <div class="booking-card">
                     <!-- Breadcrumbs - consistent style -->
                     <div class="breadcrumb">
@@ -660,6 +860,10 @@
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item completed">
                             <span class="material-symbols-outlined text-sm">check_circle</span> Contact
+                        </span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item completed">
+                            <span class="material-symbols-outlined text-sm">check_circle</span> Location
                         </span>
                         <span class="breadcrumb-separator">/</span>
                         <span class="breadcrumb-item completed">
@@ -706,7 +910,7 @@
                                                 <span class="text-slate-500 text-sm">Pay after the service is completed</span>
                                             </div>
                                         </div>
-                                        <input checked class="size-5 text-primary focus:ring-primary border-slate-300" name="payment" type="radio"/>
+                                        <input checked class="size-5 text-primary focus:ring-primary border-slate-300" name="payment" type="radio" value="cash"/>
                                     </label>
                                     <label class="relative flex cursor-pointer items-center justify-between rounded-xl border-2 border-primary/10 bg-white dark:bg-background-dark p-5 hover:border-primary/40 transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
                                         <div class="flex items-center gap-4">
@@ -718,7 +922,7 @@
                                                 <span class="text-slate-500 text-sm">Visa, Mastercard, AMEX</span>
                                             </div>
                                         </div>
-                                        <input class="size-5 text-primary focus:ring-primary border-slate-300" name="payment" type="radio"/>
+                                        <input class="size-5 text-primary focus:ring-primary border-slate-300" name="payment" type="radio" value="card"/>
                                     </label>
                                     <label class="relative flex cursor-pointer items-center justify-between rounded-xl border-2 border-primary/10 bg-white dark:bg-background-dark p-5 hover:border-primary/40 transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
                                         <div class="flex items-center gap-4">
@@ -730,7 +934,7 @@
                                                 <span class="text-slate-500 text-sm">Direct transfer from your bank</span>
                                             </div>
                                         </div>
-                                        <input class="size-5 text-primary focus:ring-primary border-slate-300" name="payment" type="radio"/>
+                                        <input class="size-5 text-primary focus:ring-primary border-slate-300" name="payment" type="radio" value="bank"/>
                                     </label>
                                 </div>
                             </section>
@@ -769,11 +973,11 @@
                 <!-- Sticky Action Footer -->
                 <div class="sticky-action-footer bg-white dark:bg-slate-900 mt-8 -mx-4 md:-mx-6 px-4 md:px-6 py-4">
                     <div class="flex flex-col gap-3">
-                        <button onclick="validateAndNext(5)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+                        <button onclick="validateAndNext(6)" class="w-full bg-primary hover:bg-primary/90 text-white font-bold text-lg h-16 rounded-xl shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
                             <span>Complete Booking</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
-                        <button onclick="prevStep(5)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
+                        <button onclick="prevStep(6)" class="w-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 font-medium text-base py-2 transition-colors flex items-center justify-center gap-1">
                             <span class="material-symbols-outlined text-base">arrow_back</span>
                             Back to Date & Time
                         </button>
@@ -781,8 +985,8 @@
                 </div>
             </div>
 
-            <!-- STEP 6: Confirmation -->
-            <div id="step-6" class="step-hidden step-transition w-full max-w-[560px] mx-auto">
+            <!-- STEP 7: Confirmation (Share button removed) -->
+            <div id="step-7" class="step-hidden step-transition w-full max-w-[560px] mx-auto">
                 <div class="booking-card">
                     <!-- Success Illustration -->
                     <div class="flex flex-col items-center pt-6 pb-6 px-6 text-center">
@@ -803,22 +1007,16 @@
                         <div class="space-y-4" id="confirmation-details"></div>
                     </div>
 
-                    <!-- Actions -->
+                    <!-- Actions - Share button removed -->
                     <div class="p-8 flex flex-col gap-4">
                         <button onclick="addToCalendar()" class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-14 rounded-xl flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined">event_available</span>
                             Add to Calendar
                         </button>
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <button onclick="setReminder()" class="flex-1 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold h-12 rounded-lg flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-xl">notifications_active</span>
-                                Set Reminder
-                            </button>
-                            <button onclick="shareDetails()" class="flex-1 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold h-12 rounded-lg flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-xl">share</span>
-                                Share Details
-                            </button>
-                        </div>
+                        <button onclick="setReminder()" class="w-full border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold h-14 rounded-lg flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-xl">notifications_active</span>
+                            Set Reminder
+                        </button>
                         <button onclick="resetToStep1()" class="mt-4 text-center text-primary font-bold text-sm hover:underline flex items-center justify-center gap-1">
                             <span class="material-symbols-outlined text-base">arrow_back</span>
                             Back to Home
@@ -832,31 +1030,117 @@
     <script>
         // State Management
         let currentStep = 1;
-        const totalSteps = 6;
+        const totalSteps = 7;
         let customServices = [];
         let selectedServices = [];
         let selectedDate = null;
         
+        // Location state
+        let locationData = {
+            coords: null,
+            link: null,
+            address: null
+        };
+        
+        // Payment method state
+        let selectedPaymentMethod = 'cash';
+        
         // 12-hour time state
-        let currentHour = 12; // 12-hour format (1-12)
+        let currentHour = 12;
         let currentMinute = 0;
-        let currentAmPm = 'PM'; // AM or PM
+        let currentAmPm = 'PM';
         
         const FORM_SUBMIT_URL = 'https://formsubmit.co/ajax/book1n9@six7.lk';
         
-        // Sri Lanka timezone helper
+        // Sri Lanka timezone helper (UTC+5:30)
         function getSriLankaTime() {
             const now = new Date();
             // Sri Lanka is UTC+5:30
-            const sriLankaOffset = 5.5 * 60 * 60 * 1000;
-            return new Date(now.getTime() + sriLankaOffset);
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            return new Date(utc + (5.5 * 60 * 60 * 1000));
         }
         
+        // Location Functions
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location-output").innerText = "Geolocation not supported.";
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const mapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+            
+            locationData.coords = `${lat},${lng}`;
+            locationData.link = mapsLink;
+            
+            const output = document.getElementById("location-output");
+            output.innerHTML = `
+                <p class="text-sm mb-2">📍 Coordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}</p>
+                <a href="${mapsLink}" target="_blank" class="location-link">
+                    <span class="material-symbols-outlined text-sm">map</span>
+                    View on Google Maps
+                </a>
+            `;
+            
+            document.getElementById('location-result').classList.add('visible');
+            document.getElementById('location-coords').value = `${lat},${lng}`;
+            document.getElementById('location-link').value = mapsLink;
+            
+            updateLocationPreview();
+        }
+
+        function showError(error) {
+            let errorMessage = "Error getting location: ";
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage += "Please allow location access or enter your address manually.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage += "Location information unavailable. Please enter address manually.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage += "Location request timed out. Please enter address manually.";
+                    break;
+                default:
+                    errorMessage += "Unknown error. Please enter address manually.";
+            }
+            
+            const output = document.getElementById("location-output");
+            output.innerHTML = `<p class="text-sm text-red-500">${errorMessage}</p>`;
+            document.getElementById('location-result').classList.add('visible');
+        }
+
+        function updateLocationPreview() {
+            const manualAddress = document.getElementById('manual-address').value.trim();
+            const preview = document.getElementById('location-preview');
+            const previewText = document.getElementById('preview-text');
+            
+            if (manualAddress) {
+                preview.classList.remove('hidden');
+                previewText.textContent = manualAddress;
+                locationData.address = manualAddress;
+            } else if (locationData.link) {
+                preview.classList.remove('hidden');
+                previewText.innerHTML = `<a href="${locationData.link}" target="_blank" class="text-primary">View on Google Maps</a>`;
+            } else {
+                preview.classList.add('hidden');
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             showStep(1);
             initializeServiceCheckboxes();
             updateBookingSummary();
+            
+            const manualAddress = document.getElementById('manual-address');
+            if (manualAddress) {
+                manualAddress.addEventListener('input', updateLocationPreview);
+            }
             
             // Set min date for stock date picker to today
             const today = new Date().toISOString().split('T')[0];
@@ -870,6 +1154,14 @@
             // Initialize time display to next available 30+ minute slot
             initializeTimeToNextSlot();
             updateTimeDisplay();
+            
+            // Track payment method selection
+            const paymentRadios = document.querySelectorAll('input[name="payment"]');
+            paymentRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    selectedPaymentMethod = this.value;
+                });
+            });
         });
 
         // Stock Date Picker Handler
@@ -881,7 +1173,7 @@
             }
         }
 
-        // Time Functions for 12-hour format
+        // Time Functions for 12-hour format - FIXED to allow any time 30+ minutes away
         function initializeTimeToNextSlot() {
             const sriLankaNow = getSriLankaTime();
             
@@ -889,7 +1181,7 @@
             let targetTime = new Date(sriLankaNow);
             targetTime.setMinutes(targetTime.getMinutes() + 30);
             
-            // Round to nearest 15 minutes
+            // Round to nearest 15 minutes (but keep the time if it's already valid)
             let minutes = targetTime.getMinutes();
             minutes = Math.ceil(minutes / 15) * 15;
             if (minutes >= 60) {
@@ -907,14 +1199,14 @@
         }
 
         function adjustTime(minutesChange) {
-            // Convert current 12-hour time to total minutes since midnight
+            // Convert current 12-hour time to 24-hour for calculation
             let hours24 = currentHour;
             if (currentAmPm === 'PM' && currentHour !== 12) hours24 += 12;
             if (currentAmPm === 'AM' && currentHour === 12) hours24 = 0;
             
             let totalMinutes = hours24 * 60 + currentMinute + minutesChange;
             
-            // Wrap around 24 hours
+            // Wrap around 24 hours (allow any time of day)
             if (totalMinutes < 0) totalMinutes += 24 * 60;
             if (totalMinutes >= 24 * 60) totalMinutes -= 24 * 60;
             
@@ -975,6 +1267,9 @@
                     break;
                 case 5:
                     isValid = validateStep5();
+                    break;
+                case 6:
+                    isValid = validateStep6();
                     if (isValid) {
                         submitBooking();
                         return;
@@ -1038,6 +1333,19 @@
         }
 
         function validateStep3() {
+            const manualAddress = document.getElementById('manual-address').value.trim();
+            const locationError = document.getElementById('location-error');
+            
+            if (!manualAddress && !locationData.coords) {
+                locationError.classList.remove('hidden');
+                return false;
+            }
+            
+            locationError.classList.add('hidden');
+            return true;
+        }
+
+        function validateStep4() {
             const checkboxes = document.querySelectorAll('.service-checkbox:checked');
             const customServicesCount = customServices.length;
             const serviceError = document.getElementById('service-error');
@@ -1051,14 +1359,13 @@
             return true;
         }
 
-        function validateStep4() {
+        function validateStep5() {
             const dateError = document.getElementById('date-error');
             const timeError = document.getElementById('time-error');
             const timeErrorText = document.getElementById('time-error-text');
             
             let isValid = true;
             
-            // Validate date
             if (!selectedDate) {
                 dateError.classList.remove('hidden');
                 isValid = false;
@@ -1066,7 +1373,6 @@
                 dateError.classList.add('hidden');
             }
             
-            // Validate time (30+ minutes from now)
             const selectedDateTime = getSelectedDateTime();
             if (!selectedDateTime) {
                 timeErrorText.textContent = 'Please select a valid time';
@@ -1088,7 +1394,6 @@
                     } else {
                         timeError.classList.add('hidden');
                         
-                        // Update display
                         const display = document.getElementById('selected-datetime-display');
                         display.textContent = `${selectedDate.toLocaleDateString('default', { weekday: 'short', month: 'short', day: 'numeric' })} at ${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}`;
                     }
@@ -1098,8 +1403,8 @@
             return isValid;
         }
 
-        function validateStep5() {
-            return true;
+        function validateStep6() {
+            return true; // Payment method is always selected by default
         }
 
         // Step Navigation
@@ -1122,9 +1427,9 @@
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            if (stepNumber === 5) {
+            if (stepNumber === 6) {
                 updateBookingSummary();
-            } else if (stepNumber === 6) {
+            } else if (stepNumber === 7) {
                 updateConfirmationDetails();
             }
         }
@@ -1294,8 +1599,27 @@
 
         function updateConfirmationDetails() {
             const details = document.getElementById('confirmation-details');
+            const time24hr = document.getElementById('time-24hr');
+            const manualAddress = document.getElementById('manual-address').value.trim();
             
-            if (selectedDate) {
+            // Get selected payment method text
+            const paymentRadios = document.querySelectorAll('input[name="payment"]');
+            let paymentText = 'Cash on Arrival';
+            paymentRadios.forEach(radio => {
+                if (radio.checked) {
+                    switch(radio.value) {
+                        case 'cash': paymentText = 'Cash on Arrival'; break;
+                        case 'card': paymentText = 'Credit/Debit Card'; break;
+                        case 'bank': paymentText = 'Bank Transfer'; break;
+                    }
+                }
+            });
+            
+            if (selectedDate && time24hr) {
+                let locationText = manualAddress || (locationData.link ? 
+                    `<a href="${locationData.link}" target="_blank" class="text-primary">View on Map</a>` : 
+                    'Location provided');
+                
                 details.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -1316,30 +1640,62 @@
                             <span class="material-symbols-outlined text-slate-400">location_on</span>
                             <p class="text-slate-600 dark:text-slate-400 text-sm font-medium">Location</p>
                         </div>
-                        <p class="text-slate-900 dark:text-slate-100 text-sm font-bold">Downtown Studio</p>
+                        <p class="text-slate-900 dark:text-slate-100 text-sm font-bold">${locationText}</p>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-slate-400">payments</span>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm font-medium">Payment</p>
+                        </div>
+                        <p class="text-slate-900 dark:text-slate-100 text-sm font-bold">${paymentText}</p>
                     </div>
                 `;
             }
         }
 
-        // Form Submission
+        // Form Submission - INCLUDES PAYMENT METHOD
         async function submitBooking() {
             const name = document.getElementById('name-input')?.value || 'Guest';
             const phone = document.getElementById('phone-input')?.value || '';
             const email = document.getElementById('email-input')?.value || '';
             const time24hr = document.getElementById('time-24hr')?.value || '';
+            const manualAddress = document.getElementById('manual-address').value.trim();
+            
+            // Get selected payment method
+            const paymentRadios = document.querySelectorAll('input[name="payment"]');
+            let paymentValue = 'cash';
+            let paymentText = 'Cash on Arrival';
+            paymentRadios.forEach(radio => {
+                if (radio.checked) {
+                    paymentValue = radio.value;
+                    switch(radio.value) {
+                        case 'cash': paymentText = 'Cash on Arrival'; break;
+                        case 'card': paymentText = 'Credit/Debit Card'; break;
+                        case 'bank': paymentText = 'Bank Transfer'; break;
+                    }
+                }
+            });
             
             const allItems = [...selectedServices, ...customServices];
             const subtotal = allItems.reduce((sum, item) => sum + (item.price || 0), 0);
             const tax = Math.round(subtotal * 0.1);
             const total = subtotal + tax;
             
+            // Prepare location data
+            const locationString = manualAddress || 
+                (locationData.link ? locationData.link : 'No location provided');
+            
             const formData = {
                 _subject: 'New Booking from White Label',
                 name: name,
                 phone: phone,
                 email: email,
+                location: locationString,
+                location_coords: locationData.coords || 'Not provided',
+                payment_method: paymentText,
+                payment_value: paymentValue,
                 services: JSON.stringify(allItems),
+                services_count: allItems.length,
                 date: selectedDate ? selectedDate.toLocaleDateString() : 'Not selected',
                 time: time24hr,
                 time12hr: `${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}`,
@@ -1364,7 +1720,7 @@
                 });
                 
                 if (response.ok) {
-                    nextStep(5);
+                    nextStep(6);
                 } else {
                     alert('There was an error submitting your booking. Please try again.');
                 }
@@ -1383,9 +1739,11 @@
             }
             
             const endDate = new Date(selectedDateTime);
-            endDate.setHours(endDate.getHours() + 1); // Assume 1-hour appointment
+            endDate.setHours(endDate.getHours() + 1);
             
-            // Create ICS file
+            const manualAddress = document.getElementById('manual-address').value.trim();
+            const location = manualAddress || (locationData.link || 'Downtown Studio');
+            
             const formatDate = (date) => {
                 return date.toISOString().replace(/-|:|\.\d+/g, '');
             };
@@ -1400,7 +1758,7 @@ DTSTART:${formatDate(selectedDateTime)}
 DTEND:${formatDate(endDate)}
 SUMMARY:Appointment with White Label
 DESCRIPTION:Booking confirmation for White Label services
-LOCATION:Downtown Studio
+LOCATION:${location}
 STATUS:CONFIRMED
 SEQUENCE:0
 BEGIN:VALARM
@@ -1411,7 +1769,6 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`;
             
-            // Create download link
             const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -1431,8 +1788,9 @@ END:VCALENDAR`;
             }
             
             const timeStr = `${selectedDate.toLocaleDateString()} at ${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}`;
+            const manualAddress = document.getElementById('manual-address').value.trim();
+            const location = manualAddress || (locationData.link || 'Downtown Studio');
             
-            // Check for notification permission
             if ('Notification' in window) {
                 if (Notification.permission === 'granted') {
                     new Notification('Reminder Set', {
@@ -1440,9 +1798,8 @@ END:VCALENDAR`;
                         icon: 'https://via.placeholder.com/48'
                     });
                     
-                    // Also create a reminder ICS file
                     const reminderDate = new Date(selectedDateTime);
-                    reminderDate.setMinutes(reminderDate.getMinutes() - 15); // 15 minutes before
+                    reminderDate.setMinutes(reminderDate.getMinutes() - 15);
                     
                     const formatDate = (date) => {
                         return date.toISOString().replace(/-|:|\.\d+/g, '');
@@ -1458,7 +1815,7 @@ DTSTART:${formatDate(reminderDate)}
 DTEND:${formatDate(reminderDate)}
 SUMMARY:Reminder: Appointment with White Label
 DESCRIPTION:Your appointment is in 15 minutes
-LOCATION:Downtown Studio
+LOCATION:${location}
 STATUS:CONFIRMED
 BEGIN:VALARM
 TRIGGER:PT0S
@@ -1485,36 +1842,8 @@ END:VCALENDAR`;
                     });
                 }
             } else {
-                // Fallback for browsers without notification support
                 alert(`Reminder set for ${timeStr}. Please set a calendar reminder manually.`);
-                
-                // Still offer ICS download
                 addToCalendar();
-            }
-        }
-
-        function shareDetails() {
-            const selectedDateTime = getSelectedDateTime();
-            if (!selectedDateTime) {
-                alert('Please select a date and time first');
-                return;
-            }
-            
-            const text = `I've booked an appointment with White Label on ${selectedDate.toLocaleDateString()} at ${currentHour}:${currentMinute.toString().padStart(2, '0')} ${currentAmPm}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My Booking Details',
-                    text: text,
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                // Fallback: copy to clipboard
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('Booking details copied to clipboard!');
-                }).catch(() => {
-                    alert('Share this link: ' + window.location.href);
-                });
             }
         }
     </script>
